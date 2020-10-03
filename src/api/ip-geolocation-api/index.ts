@@ -1,0 +1,1 @@
+export { ipGeolocationApi } from './IpGeolocationApi';

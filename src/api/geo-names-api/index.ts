@@ -1,0 +1,1 @@
+export { geoNamesApi } from './geoNamesApi';

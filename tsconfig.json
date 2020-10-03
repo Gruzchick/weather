@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "es6"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "importsNotUsedAsValues": "preserve",
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "jest",
+      "@testing-library/jest-dom",
+      "@types/webpack-env"
+    ]
+  },
+  "include": ["src"]
+}

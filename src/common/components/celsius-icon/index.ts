@@ -1,0 +1,1 @@
+export { CelsiusIcon } from './CelsiusIcon';

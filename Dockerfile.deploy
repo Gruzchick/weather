@@ -1,0 +1,14 @@
+FROM node:erbium
+
+WORKDIR '/app'
+
+COPY dist ./dist
+COPY server.js ./
+
+RUN yarn init -y
+
+RUN yarn add express
+
+EXPOSE 9000
+
+CMD ["node", "server.js"]

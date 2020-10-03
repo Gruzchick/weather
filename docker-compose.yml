@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      NODE_ENV: ${CLIENT_NODE_ENV}
+      PORT: ${CLIENT_PORT_IN_CONTAINER}
+      IP_GEOLOCATION_KEY: ${CLIENT_IP_GEOLOCATION_KEY}
+      IP_GEOLOCATION_URL: ${CLIENT_IP_GEOLOCATION_URL}
+      WEATHER_KEY: ${CLIENT_WEATHER_KEY}
+      WEATHER_URL: ${CLIENT_WEATHER_URL}
+      GEO_NAMES_KEY: ${CLIENT_GEO_NAMES_KEY}
+      GEO_NAMES_URL: ${CLIENT_GEO_NAMES_URL}
+    image: ${CLIENT_IMAGE_NAME}
+    container_name: ${CLIENT_CONTAINER_NAME}
+    ports:
+      - ${CLIENT_PORT_ON_HOST}:${CLIENT_PORT_IN_CONTAINER}
+    volumes:
+      - .:/client
+    command: yarn start

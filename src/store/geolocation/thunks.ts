@@ -22,7 +22,7 @@ import { GEOLOCATION_ACTION_PREFIX } from './constants';
 const getThunkActionType = createGetThunkActionType(GEOLOCATION_ACTION_PREFIX);
 
 export const getBootstrapGeolocation = createAsyncThunk<
-  GetPlaceHierarchyByPlaceId,
+  GetPlaceHierarchyByPlaceId | { geonames: [] },
   void,
   { state: RootState; getState: GetState }
 >(getThunkActionType('GET_BOOTSTRAP_GEO_LOCATION'), async (_, { getState }) => {
@@ -36,9 +36,14 @@ export const getBootstrapGeolocation = createAsyncThunk<
   }
 
   const { data: coordinates } = await ipGeolocationApi.getCoordinatesByIP();
+
   const {
     data: { geonames },
   } = await geoNamesApi.getPlaceByCoordinates(coordinates);
+
+  if (geonames.length === 0) {
+    return { geonames: [] };
+  }
 
   const geonameId = String(geonames[0].geonameId);
 

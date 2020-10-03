@@ -112,7 +112,7 @@ export const GeolocationSelector: FC = () => {
           isLoading={isCountriesLoading}
           getOptionLabel={getOptionLabel}
           getOptionValue={getOptionValue}
-          isDisabled={!country} // Disable only while a bootstrapping
+          isDisabled={!wasGeolocationBootstrapped} // Disable only while a bootstrapping
         />
       </Grid>
       <Grid item md={4}>

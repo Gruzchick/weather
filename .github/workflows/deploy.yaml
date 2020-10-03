@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IP_GEOLOCATION_KEY: c665705264dd47cb9e2a50b5c4ae91c5
+  IP_GEOLOCATION_URL: https://api.ipgeolocation.io/ipgeo
+  WEATHER_KEY: be6792aeb9894b658232894e19545adf
+  WEATHER_URL: http://api.weatherbit.io/v2.0/current
+  GEO_NAMES_KEY: azazel
+  GEO_NAMES_URL: http://api.geonames.org
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 12
+      - run: yarn
+      - run: yarn build
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build Docker image
+        run: docker build --file Dockerfile.deploy -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}:${GITHUB_SHA::8} .
+      - name: Publish Docker image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO }}:${GITHUB_SHA::8}
+      - name: Pull docker container by server
+        uses: appleboy/ssh-action@master
+        env:
+          DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          HOST_PORT: ${{ secrets.HOST_PORT }}
+        with:
+          host: ${{ secrets.HOST_IP_ADDRESS }}
+          username: ${{ secrets.HOST_USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          envs: DOCKER_REPO,HOST_PORT,DOCKERHUB_USERNAME,GITHUB_SHA
+          script: |
+            sudo docker stop $DOCKER_REPO
+            sudo docker container rm $DOCKER_REPO
+            sudo docker run --restart unless-stopped -d -p $HOST_PORT:9000 --name $DOCKER_REPO $DOCKERHUB_USERNAME/$DOCKER_REPO:${GITHUB_SHA::8}
+            sudo docker system prune -f -a

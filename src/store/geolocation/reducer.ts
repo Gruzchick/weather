@@ -39,9 +39,9 @@ export const reducer = createReducer(geolocationInitialState, (builder) => {
 
     const [, , country, region, place] = geonames;
 
-    state.country = country;
-    state.region = region;
-    state.place = place;
+    state.country = country ?? null;
+    state.region = region ?? null;
+    state.place = place ?? null;
     state.wasGeolocationBootstrapped = true;
   });
 });

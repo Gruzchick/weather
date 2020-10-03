@@ -7,7 +7,6 @@ import { CelsiusIcon } from '../../../../common/components/celsius-icon';
 import { geolocationSelector } from '../../../../store/geolocation';
 import {
   WEATHER_STALE_PERIOD_IN_MINUTES,
-  WEATHER_UPDATE_TIMEOUT_IN_MINUTES,
 } from './constants';
 import { helpers } from './helpers';
 import {
@@ -28,7 +27,6 @@ export const CurrentWeatherDisplay: FC = () => {
     helpers,
     {
       enabled: Boolean(place),
-      refetchInterval: 1000 * 60 * WEATHER_UPDATE_TIMEOUT_IN_MINUTES,
       staleTime: 1000 * 60 * WEATHER_STALE_PERIOD_IN_MINUTES,
     },
   );

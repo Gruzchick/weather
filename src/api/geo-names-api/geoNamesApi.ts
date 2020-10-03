@@ -76,8 +76,6 @@ class GeoNamesApi {
         params: {
           lat: latitude,
           lng: longitude,
-          featureCode:
-            FeatureCodes.PopulatedPlaceFirstOrderAdministrativeDivision,
           username: API_KEY,
           type: 'json',
         },

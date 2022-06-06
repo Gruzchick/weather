@@ -1,15 +1,9 @@
-Это я делал когда-то, чтобы пробовать: react hooks api, @reduxjs/toolkit, react-query.
+Учебный репозиторий, чтобы пробовать: react hooks api, @reduxjs/toolkit, react-query.
 
-[Демо](http://weather.alexpankin.ru/)
+[Демо](http://weather.alexpankin.com/)
 
 Чтобы запустить:
 
 ```shell
 yarn docker
 ```
-
-Если у вас появятся какие-то вопросы или замечания по реализации, с удовольствием их выслушаю, отвечу на вопросы. Люблю узнавать новое, становится лучше.
-
-Моя почта pankinsasha24@gmail.com
-
-Есть подозрение, что api https://www.geonames.org/, в некоторых случаях работает некорректно, поэтому могут быть странности с поиском населённых пунктов
